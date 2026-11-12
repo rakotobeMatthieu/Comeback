@@ -36,7 +36,9 @@ jobs:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
           if [ -n "$SIGNING_KEY" ]; then
-            echo "$SIGNING_KEY" | base64 -d > "$RUNNER_TEMP/comeback.jks"
+            echo "$SIGNING_KEY" | tr -d ' \r\n' | base64 -d > "$RUNNER_TEMP/comeback.jks"
+            keytool -list -keystore "$RUNNER_TEMP/comeback.jks" -storepass comeback-app > /dev/null \
+              || { echo "::error::Le secret SIGNING_KEY est invalide (copie incomplète ?)"; exit 1; }
             echo "SIGNING_KEY_FILE=$RUNNER_TEMP/comeback.jks" >> "$GITHUB_ENV"
             echo "HAS_KEY=true" >> "$GITHUB_ENV"
           else
