@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ComeBack</string>
+    <string name="widget_name">ComeBack — objectifs du jour</string>
+    <string name="widget_description">Valide tes objectifs du jour sans ouvrir l\'app</string>
+</resources>
